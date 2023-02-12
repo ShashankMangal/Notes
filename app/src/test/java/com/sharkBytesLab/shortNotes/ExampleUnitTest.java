@@ -1,4 +1,4 @@
-package com.example.notes;
+package com.sharkBytesLab.shortNotes;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.notes;
+package com.sharkBytesLab.shortNotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import java.util.HashSet;
