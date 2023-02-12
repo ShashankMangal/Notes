@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.sharkBytesLab.shortNotes"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode 1
         versionName "1.0.1"
@@ -36,4 +37,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }
