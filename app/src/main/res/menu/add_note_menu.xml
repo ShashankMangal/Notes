@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:title="Add Note" android:id="@+id/add_note"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Add New Note"
+        android:id="@+id/add_note" />
+
+    <item
+        android:title="Review"
+        android:id="@+id/review" />
+
+    <item
+        android:title="Share"
+        android:id="@+id/share" />
+
+    <item
+        android:title="Terms &amp; Conditions"
+        android:id="@+id/terms" />
+
+    <item
+        android:title="Privacy Policy"
+        android:id="@+id/policy" />
+
+    <item
+        android:title="Support Us"
+        android:id="@+id/support"
+        android:icon="@drawable/support_asset"
+        app:showAsAction="always"
+        />
 </menu>
