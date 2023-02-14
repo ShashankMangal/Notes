@@ -28,5 +28,20 @@
         android:layout_gravity="center"
         app:SpinKit_Color="@color/themeColor" />
 
+    <TextView
+        android:id="@+id/splash_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/spin_kit"
+        app:layout_constraintEnd_toEndOf="@id/spin_kit"
+        app:layout_constraintBottom_toTopOf="@id/spin_kit"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="v1.0.1"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
