@@ -136,6 +136,10 @@ public class MainActivity extends AppCompatActivity implements MaxAdListener {
         switch(item.getItemId())
         {
             case R.id.add_note:{
+                if ( interstitialAd.isReady() )
+                {
+                    interstitialAd.showAd();
+                }
                 Intent intent = new Intent(getApplicationContext(),NoteEditorActivity.class);
                 startActivity(intent);
             }
