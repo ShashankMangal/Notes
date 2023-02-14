@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -102,13 +104,55 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId() == R.id.add_note){
-            Intent intent = new Intent(getApplicationContext(),NoteEditorActivity.class);
-            startActivity(intent);
-            return true;
+        switch(item.getItemId())
+        {
+            case R.id.add_note:{
+                Intent intent = new Intent(getApplicationContext(),NoteEditorActivity.class);
+                startActivity(intent);
+            }
+            break;
 
-        }else
-            return false;
+            case R.id.share:
+            {
+                String shareBody = "Hey, I'm using Short Notes for creating my notes. Install using this link below." + " \n" +
+                        "Download from Play Store\n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
 
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.review:
+            {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName());
+                Intent i = new Intent(Intent.ACTION_VIEW, uri);
+
+                try {
+                    startActivity(i);
+                } catch (Exception e) {
+
+                    Toast.makeText(getApplicationContext(), "Error :" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;
+
+            case R.id.terms:
+            {
+                Intent intent = new Intent(getApplicationContext(),TermsActivity.class);
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.policy:
+            {
+                Intent intent = new Intent(getApplicationContext(),PolicyActivity.class);
+                startActivity(intent);
+            }
+            break;
+
+        }
+        return true;
     }
 }
