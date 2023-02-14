@@ -18,8 +18,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/applovinAd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.applovin.mediation.ads.MaxAdView
+        android:id="@+id/applovinAd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        xmlns:maxads="http://schemas.applovin.com/android/1.0"
+        maxads:adUnitId="98709fa22c631559"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </com.applovin.mediation.ads.MaxAdView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,10 +20,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdListener;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.mediation.ads.MaxInterstitialAd;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MaxAdListener {
 
     //CODE STARTS HERE
 
@@ -30,16 +40,35 @@ public class MainActivity extends AppCompatActivity {
     static ArrayAdapter arrayAdapter;
     SharedPreferences sharedPreferences ;
 
+    private MaxInterstitialAd interstitialAd;
 
-
-
+    private MaxAdView adView;
+    private int retryAttempt;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPreferences = getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("com.sharkBytesLab.shortNotes", Context.MODE_PRIVATE);
+
+        adView = findViewById(R.id.applovinAd);
+        AppLovinSdk.getInstance( this ).setMediationProvider( "max" );
+        AppLovinSdk.initializeSdk( this, new AppLovinSdk.SdkInitializationListener() {
+            @Override
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+                // AppLovin SDK is initialized, start loading ads
+            }
+        } );
+
+        interstitialAd = new MaxInterstitialAd( "ba30eedc9847bd7b", this );
+        interstitialAd.setListener( this );
+
+        adView.loadAd();
+        // Load the first ad
+        interstitialAd.loadAd();
+
 
         //CODE STARTS HERE
         ListView listView = findViewById(R.id.listView);
@@ -155,4 +184,51 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+    @Override
+    public void onAdLoaded(final MaxAd maxAd)
+    {
+        // Interstitial ad is ready to be shown. interstitialAd.isReady() will now return 'true'
+        // Reset retry attempt
+        retryAttempt = 0;
+    }
+
+    @Override
+    public void onAdLoadFailed(final String adUnitId, final MaxError error)
+    {
+        // Interstitial ad failed to load
+        // AppLovin recommends that you retry with exponentially higher delays up to a maximum delay (in this case 64 seconds)
+
+        retryAttempt++;
+        long delayMillis = TimeUnit.SECONDS.toMillis( (long) Math.pow( 2, Math.min( 6, retryAttempt ) ) );
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                interstitialAd.loadAd();
+            }
+        }, delayMillis );
+    }
+
+    @Override
+    public void onAdDisplayFailed(final MaxAd maxAd, final MaxError error)
+    {
+        // Interstitial ad failed to display. AppLovin recommends that you load the next ad.
+        interstitialAd.loadAd();
+    }
+
+    @Override
+    public void onAdDisplayed(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdClicked(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdHidden(final MaxAd maxAd)
+    {
+        // Interstitial ad is hidden. Pre-load the next ad
+        interstitialAd.loadAd();
+    }
+
 }

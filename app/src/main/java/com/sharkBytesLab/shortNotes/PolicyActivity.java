@@ -31,19 +31,10 @@ public class PolicyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PolicyActivity.this, MainActivity.class);
-                startActivity(intent);
+              onBackPressed();
 
             }
         });
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        startActivity(new Intent(PolicyActivity.this, MainActivity.class));
 
     }
 

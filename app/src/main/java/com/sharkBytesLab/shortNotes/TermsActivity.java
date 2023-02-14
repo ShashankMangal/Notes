@@ -30,19 +30,10 @@ public class TermsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(TermsActivity.this, MainActivity.class);
-                startActivity(intent);
+               onBackPressed();
 
             }
         });
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        startActivity(new Intent(TermsActivity.this, MainActivity.class));
 
     }
 }
