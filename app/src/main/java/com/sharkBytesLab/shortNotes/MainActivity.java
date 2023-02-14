@@ -73,12 +73,16 @@ public class MainActivity extends AppCompatActivity implements MaxAdListener {
         //CODE STARTS HERE
         ListView listView = findViewById(R.id.listView);
         HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes",null);
-        if(set == null){
-        notes.add("Example Note");}else{
-            notes = new ArrayList(set);
+        try {
+            if(set == null){
+            notes.add("Example Note");}else{
+                notes = new ArrayList(set);
+            }
+            arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,notes);
+            listView.setAdapter(arrayAdapter);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,notes);
-        listView.setAdapter(arrayAdapter);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -136,10 +140,7 @@ public class MainActivity extends AppCompatActivity implements MaxAdListener {
         switch(item.getItemId())
         {
             case R.id.add_note:{
-                if ( interstitialAd.isReady() )
-                {
-                    interstitialAd.showAd();
-                }
+
                 Intent intent = new Intent(getApplicationContext(),NoteEditorActivity.class);
                 startActivity(intent);
             }
@@ -184,6 +185,16 @@ public class MainActivity extends AppCompatActivity implements MaxAdListener {
                 startActivity(intent);
             }
             break;
+
+            case R.id.support:
+            {
+                if ( interstitialAd.isReady() )
+                {
+                    interstitialAd.showAd();
+                }
+                Intent intent = new Intent(getApplicationContext(),SupportActivity.class);
+                startActivity(intent);
+            }
 
         }
         return true;

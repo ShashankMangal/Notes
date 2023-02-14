@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sharkBytesLab.shortNotes">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_new_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Notes">
+        <activity
+            android:name=".SupportActivity"
+            android:exported="false" />
         <activity
             android:name=".PolicyActivity"
             android:exported="false" />
@@ -36,8 +40,7 @@
 
         <meta-data
             android:name="applovin.sdk.key"
-            android:value="doNokpQpB4U8uCdC0RFRN7O2VWKagVVGIFFffq_NSgiVQ4_TOoqDFOmBgdKpxUgGSRpRiC39b85dC8_TkifX2y"/>
-
+            android:value="doNokpQpB4U8uCdC0RFRN7O2VWKagVVGIFFffq_NSgiVQ4_TOoqDFOmBgdKpxUgGSRpRiC39b85dC8_TkifX2y" />
     </application>
 
 </manifest>
